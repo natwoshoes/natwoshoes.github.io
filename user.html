@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panther Shop - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #007BFF;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        .form-container {
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        form {
+            margin: auto;
+            max-width: 300px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            padding: 16px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="images/Untitled design (1).png" alt="Panther Paw Logo"></div>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="cart.html">Cart</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="form-container">
+        <form id="signupForm">
+            <div class="container">
+                <h2>Sign Up</h2>
+                <label for="signupUsername"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" id="signupUsername" required>
+
+                <label for="signupPassword"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" id="signupPassword" required>
+
+                <button type="submit">Sign Up</button>
+            </div>
+        </form>
+
+        <form id="loginForm">
+            <div class="container">
+                <h2>Log In</h2>
+                <label for="loginUsername"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" id="loginUsername" required>
+
+                <label for="loginPassword"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" id="loginPassword" required>
+
+                <button type="submit">Log In</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="message" class="container error"></div>
+
+    <script type="text/javascript">
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let username = document.getElementById('signupUsername').value;
+            let password = document.getElementById('signupPassword').value;
+
+            if (localStorage.getItem(username)) {
+                document.getElementById('message').innerText = 'User already exists!';
+            } else {
+                localStorage.setItem(username, JSON.stringify({password: password}));
+                window.location.href = 'index.html';  // Redirect to index.html on successful signup
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let username = document.getElementById('loginUsername').value;
+            let password = document.getElementById('loginPassword').value;
+
+            let userData = JSON.parse(localStorage.getItem(username));
+
+            if (userData && userData.password === password) {
+                document.getElementById('message').innerText = 'Login successful!';
+            } else {
+                document.getElementById('message').innerText = 'Invalid username or password!';
+            }
+        });
+    </script>
+</body>
+</html>

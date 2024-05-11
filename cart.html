@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        .total {
+            text-align: right;
+            margin-top: 20px;
+            font-size: large;
+        }
+        .empty-cart {
+            text-align: center;
+            margin-top: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #007BFF;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .header-text {
+            color: white;
+            font-size: 24px; /* Adjust size as needed */
+            font-weight: bold;
+        }
+        
+        .logo img {
+            width: 120px;
+            height: 120px;
+            margin: 0 20px; /* Adds spacing between the text and the logo */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <span class="header-text">Panther Shop</span>
+            <div class="logo"><img src="images/Untitled design (1).png" alt="Panther Paw Logo"></div>
+            <span class="header-text">Panther Shop</span>
+        </div>
+
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="cart.html">Cart</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="container">
+        <h1>Your Shopping Cart</h1>
+        <table id="cart-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                <!-- Cart items will be added here dynamically -->
+            </tbody>
+        </table>
+        <div class="total" id="total-price">Total: $0</div>
+        <div class="empty-cart" id="empty-cart">Your cart is empty.</div>
+        <button id="checkout-button" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Proceed to Checkout</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            let total = 0;
+            const itemsContainer = document.getElementById('cart-items');
+            const cartTable = document.getElementById('cart-table');
+            const emptyCartMessage = document.getElementById('empty-cart');
+            const totalPriceElement = document.getElementById('total-price');
+        
+            function updateTotal() {
+                total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+                totalPriceElement.textContent = `Total: $${total.toFixed(2)}`;
+            }
+        
+            function renderCartItems() {
+                itemsContainer.innerHTML = ''; // Clear previous items
+                cartItems.forEach((item, index) => {
+                    const row = itemsContainer.insertRow();
+                    const nameCell = row.insertCell(0);
+                    const priceCell = row.insertCell(1);
+                    const quantityCell = row.insertCell(2);
+                    const subtotalCell = row.insertCell(3);
+                    const removeCell = row.insertCell(4);
+        
+                    nameCell.textContent = item.name;
+                    priceCell.textContent = `$${item.price}`;
+                    quantityCell.textContent = item.quantity;
+                    const subtotal = item.price * item.quantity;
+                    subtotalCell.textContent = `$${subtotal.toFixed(2)}`;
+        
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = 'Remove';
+                    removeButton.onclick = function() {
+                        removeItem(index);
+                    };
+                    removeCell.appendChild(removeButton);
+                });
+                updateTotal();
+            }
+        
+            function removeItem(index) {
+                cartItems.splice(index, 1); // Remove the item from the array
+                localStorage.setItem('cart', JSON.stringify(cartItems)); // Update local storage
+                if (cartItems.length === 0) {
+                    emptyCartMessage.style.display = 'block';
+                    cartTable.style.display = 'none';
+                    totalPriceElement.textContent = 'Total: $0'; // Reset the total to $0 when cart is empty
+                } else {
+                    renderCartItems();
+                }
+                updateTotal(); // Ensure total is updated after an item is removed
+            }
+        
+            if (cartItems.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartTable.style.display = 'none';
+            } else {
+                emptyCartMessage.style.display = 'none';
+                cartTable.style.display = 'table';
+                renderCartItems();
+            }
+        
+            document.getElementById('checkout-button').addEventListener('click', function() {
+                window.location.href = 'checkout.html';
+            });
+        });
+        
+    </script>
+</body>
+</html>

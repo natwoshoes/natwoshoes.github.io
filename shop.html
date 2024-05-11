@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panther Shop - Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #007BFF;
+            color: white;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        .logo img {
+            width: 120px;
+            height: 120px;
+        }
+        .product-container {
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .product {
+            width: 30%;
+            margin: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 10px;
+            text-align: center;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+        .size-selector {
+            display: flex; /* Updated to flex to align items in a row */
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .size-selector button {
+            margin: 2px;
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+        }
+        .size-selector button:hover {
+            border-color: #007BFF;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .size-selector button.selected {
+            background-color: #007BFF;  /* Blue background for selected size */
+            color: white;               /* White text for selected size */
+        }
+        header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #007BFF;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .header-text {
+            color: white;
+            font-size: 24px; /* Adjust size as needed */
+            font-weight: bold;
+        }
+        
+        .logo img {
+            width: 120px;
+            height: 120px;
+            margin: 0 20px; /* Adds spacing between the text and the logo */
+        }
+        
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let count = 0;
+            cart.forEach(item => count += item.quantity);
+            document.getElementById('cart-count').innerText = count > 0 ? count : '';
+        }
+
+        function addToCart(productName, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let found = cart.find(item => item.name === productName);
+            if (found) {
+                found.quantity += 1;
+            } else {
+                cart.push({ name: productName, price: price, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            alert(productName + ' added to cart.');
+        }
+
+        function addToWishlist(product) {
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            wishlist.push(product);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            alert(product + ' added to wishlist.');
+        }
+
+        function selectSize(button) {
+            const siblings = button.parentNode.querySelectorAll('button');
+            siblings.forEach((btn) => {
+                btn.classList.remove('selected');
+            });
+            button.classList.add('selected');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>
+<header>
+    <div class="header-content">
+        <span class="header-text">Panther Shop</span>
+        <div class="logo"><img src="images/Untitled design (1).png" alt="Panther Paw Logo"></div>
+        <span class="header-text">Panther Shop</span>
+    </div>
+</header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="cart.html">Cart <span id="cart-count" class="cart-count"></span></a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="product-container">
+        <h2>Our Products</h2>
+        <div class="product-grid">
+            <!-- Repeat this block for each product (adjusting the product details) -->
+            <div class="product">
+                <img src="images/6-33-C418E0.jpeg" alt="Product Name">
+                <p>Pink Hoodie</p>
+                <span>$19.99</span>
+                <div class="size-selector">
+                    <button onclick="selectSize(this);">XS</button>
+                    <button onclick="selectSize(this);">S</button>
+                    <button onclick="selectSize(this);">M</button>
+                    <button onclick="selectSize(this);">L</button>
+                </div>
+                <button onclick="addToCart('Pink Hoodie', 19.99)">Add to Cart</button>
+
+            </div>
+            <!-- Add more product divs as needed to reach 20 products -->
+            <div class="product">
+                <img src="images/6-33-C4173WA.jpeg" alt="Product Name">
+                <p>Blue T-Shirt</p>
+                <span>$19.99</span>
+                <div class="size-selector">
+                    <button onclick="selectSize(this);">XS</button>
+                    <button onclick="selectSize(this);">S</button>
+                    <button onclick="selectSize(this);">M</button>
+                    <button onclick="selectSize(this);">L</button>
+                </div>
+                <button onclick="addToCart('Blue Shirt', 19.99)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/6-33-C41191B.jpeg" alt="Product Name">
+                <p>White T-Shirt</p>
+                <span>$19.99</span>
+                <div class="size-selector">
+                    <button onclick="selectSize(this);">XS</button>
+                    <button onclick="selectSize(this);">S</button>
+                    <button onclick="selectSize(this);">M</button>
+                    <button onclick="selectSize(this);">L</button>
+                </div>
+                <button onclick="addToCart('White Shirt', 19.99)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/6-33-C41291.jpeg" alt="Product Name">
+                <p>Black T-Shirt</p>
+                <span>$19.99</span>
+                <div class="size-selector">
+                    <button onclick="selectSize(this);">XS</button>
+                    <button onclick="selectSize(this);">S</button>
+                    <button onclick="selectSize(this);">M</button>
+                    <button onclick="selectSize(this);">L</button>
+                </div>
+                <button onclick="addToCart('Black Shirt', 19.99)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/orangeshirt.jpeg" alt="Product Name">
+                <p>Orange Shirt</p>
+                <span>$19.99</span>
+                <div class="size-selector">
+                    <button onclick="selectSize(this);">XS</button>
+                    <button onclick="selectSize(this);">S</button>
+                    <button onclick="selectSize(this);">M</button>
+                    <button onclick="selectSize(this);">L</button>
+                </div>
+                <button onclick="addToCart('Orange Shirt', 19.99)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/6-33-C411BMA.jpeg" alt="Product Name">
+                <p>White Tank Top</p>
+                <span>$19.99</span>
+                <div class="size-selector">
+                    <button onclick="selectSize(this);">XS</button>
+                    <button onclick="selectSize(this);">S</button>
+                    <button onclick="selectSize(this);">M</button>
+                    <button onclick="selectSize(this);">L</button>
+                </div>
+                <button onclick="addToCart('White Tank Top', 19.99)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/whitehoodie.jpeg" alt="Product Name">
+                <p>White Hoodie </p>
+                <span>$19.99</span>
+                <div class="size-selector">
+                    <button onclick="selectSize(this);">XS</button>
+                    <button onclick="selectSize(this);">S</button>
+                    <button onclick="selectSize(this);">M</button>
+                    <button onclick="selectSize(this);">L</button>
+                </div>
+                <button onclick="addToCart('White Hoodie', 19.99)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/orangehoodie.jpeg" alt="Product Name">
+                <p>Orange Hoodie</p>
+                <span>$19.99</span>
+                <div class="size-selector">
+                    <button onclick="selectSize(this);">XS</button>
+                    <button onclick="selectSize(this);">S</button>
+                    <button onclick="selectSize(this);">M</button>
+                    <button onclick="selectSize(this);">L</button>
+                </div>
+                <button onclick="addToCart('Orange Hoodie', 19.99)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/bluehoodie.jpeg" alt="Product Name">
+                <p>Blue Hoodie</p>
+                <span>$19.99</span>
+                <div class="size-selector">
+                    <button onclick="selectSize(this);">XS</button>
+                    <button onclick="selectSize(this);">S</button>
+                    <button onclick="selectSize(this);">M</button>
+                    <button onclick="selectSize(this);">L</button>
+                </div>
+                <button onclick="addToCart('Blue Hoodie', 19.99)">Add to Cart</button>
+            </div>
+
+            
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let count = 0;
+            cart.forEach(item => count += item.quantity);
+            document.getElementById('cart-count').innerText = count > 0 ? count : '';
+        }
+
+        function addToCart(productName, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let found = cart.find(item => item.name === productName);
+
+            if (found) {
+                found.quantity += 1;
+            } else {
+                cart.push({ name: productName, price: price, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            alert(productName + ' added to cart.');
+        }
+
+
+        function addToWishlist(name, imageUrl, price) {
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            let found = wishlist.find(item => item.name === name);
+            if (!found) {
+                wishlist.push({ name: name, imageUrl: imageUrl, price: price });
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                alert(name + ' added to wishlist.');
+            } else {
+                alert(name + ' is already in your wishlist.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Panther Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #007BFF;
+            color: white;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        .logo img {
+            width: 120px;  /* Adjust this value as necessary */
+            height: auto;
+        }
+        .product-container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .product {
+            background-color: white;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #007BFF;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .header-text {
+            color: white;
+            font-size: 24px; /* Adjust size as needed */
+            font-weight: bold;
+        }
+        
+        .logo img {
+            width: 120px;
+            height: 120px;
+            margin: 0 20px; /* Adds spacing between the text and the logo */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <span class="header-text">Panther Shop</span>
+            <div class="logo"><img src="images/Untitled design (1).png" alt="Panther Paw Logo"></div>
+            <span class="header-text">Panther Shop</span>
+        </div>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="cart.html">Cart</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="product-container">
+        <h1>Contact Us</h1>
+        <p>If you have any questions or need help, please fill out the form below. </p>
+        <form action="/submit-contact-info" method="POST" class="product">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="product">
+            <h2> Address</h2>
+            <p>199 Chambers Street, New York, NY 10007 </p>
+            <p>Phone: (123) 456-7890</p>
+            <p>Email: <a href="mailto:support@panthershop.com">support@panthershop.com</a></p>
+        </div>
+    </div>
+</body>
+</html>
